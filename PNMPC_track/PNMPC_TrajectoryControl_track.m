@@ -102,23 +102,23 @@ n_epsilons = 6;
 
 % matriz Aw a partir de A
 n_rows_Aw = length(b_aux_restr_controle)+length(b_restr_increm)+length(b_aux_restr_saida);
-Aw = zeros(n_rows_Aw,Nuv+Nuw+n_epsilons);
+aux_Aw = zeros(n_rows_Aw,Nuv+Nuw+n_epsilons);
 
 TR = zeros(N * n_epsilons, n_epsilons); % top right (G;-G é o primeiro bloco da matriz A)
 for i = 1:n_epsilons
     TR((i-1)*N+1:i*N, i) = -1; % matrix com os epsilons para somar com G
 end
 
-Aw(1:size(TR,1) , end-n_epsilons+1:end) = TR;
+aux_Aw(1:size(TR,1) , end-n_epsilons+1:end) = TR;
 
 % matriz Hw a partir de Hqp
 BR = 2*diag([psi_x psi_y psi_theta psi_x psi_y psi_theta]); % bottom right
 
-Hw = zeros(Nuw+Nuv+n_epsilons);
-Hw(end-n_epsilons+1:end,end-n_epsilons+1:end) = BR;
+aux_Hw = zeros(Nuw+Nuv+n_epsilons);
+aux_Hw(end-n_epsilons+1:end,end-n_epsilons+1:end) = BR;
 
 % vetor fw a partir de fqp
-fw = [zeros(Nuw+Nuv+n_epsilons,1)];
+aux_fw = zeros(Nuw+Nuv+n_epsilons,1);
 
 
 %% --------------------------- SIMULAÇÃO ----------------------------------
@@ -157,11 +157,11 @@ while (k<=fim_sim && ref_idx ~= length(Track_x))
     end
 
     % calculo f
-    eta_x_k = Ys(k,1) - (Gxv(1,1)*dUs(k-1,1) + resposta_livre(1,1));
-    eta_y_k = Ys(k,2) - (Gyv(1,1)*dUs(k-1,1) + resposta_livre(1,2));
-    eta_theta_k = Ys(k,3) - (Gthetaw(1,1)*dUs(k-1,2) + resposta_livre(1,3));
+    eta_x_k = 0;%Ys(k,1) - (Gxv(1,1)*dUs(k-1,1) + resposta_livre(1,1));
+    eta_y_k = 0;%Ys(k,2) - (Gyv(1,1)*dUs(k-1,1) + resposta_livre(1,2));
+    eta_theta_k = 0;%Ys(k,3) - (Gthetaw(1,1)*dUs(k-1,2) + resposta_livre(1,3));
 
-    resposta_livre = modelo(Ys(k,1), Ys(k,2), Ys(k,3), Us(k-1,1), Us(k-1,2), zeros(N2,1),zeros(N2,1), eta_x_k, eta_y_k, eta_theta_k, N2, Ts);
+    resposta_livre = modelo(Ys(k,1), Ys(k,2), Ys(k,3), Us(k-1,1), Us(k-1,2), zeros(N2,1), zeros(N2,1), eta_x_k, eta_y_k, eta_theta_k, N2, Ts);
     f_total = [resposta_livre(N1:N2,1); resposta_livre(N1:N2,2); resposta_livre(N1:N2,3)];
 
     % calculo das Gs
@@ -171,34 +171,11 @@ while (k<=fim_sim && ref_idx ~= length(Track_x))
                  Gyv(N1:N2,:)      Gyw(N1:N2,:);
                Gthetav(N1:N2,:)  Gthetaw(N1:N2,:)];
 
-    Hqp = 2*(G_total'*Qe*G_total+Qu);
-    Hqp = (Hqp+Hqp')/2;
+    Hqp = 2*(G_total'*Qe*G_total+Qu); Hqp = (Hqp+Hqp')/2;
     fqp = -2*G_total'*Qe*(Ref-f_total);
 
     % restrições:
-    A_restr_saida = [ G_total; -G_total];
-
-    b_restr_saida = b_aux_restr_saida + ...
-        [-resposta_livre(N1:N2,1);-resposta_livre(N1:N2,2);-resposta_livre(N1:N2,3);
-          resposta_livre(N1:N2,1); resposta_livre(N1:N2,2); resposta_livre(N1:N2,3)];
-
-    b_restr_controle = b_aux_restr_controle + ...
-        [-Us(k-1,1)*ones(Nuv,1); Us(k-1,1)*ones(Nuv,1);
-         -Us(k-1,2)*ones(Nuw,1); Us(k-1,2)*ones(Nuw,1)];
-
-    A = [A_restr_saida;
-         A_restr_controle;
-         A_restr_increm];
-
-    b = [b_restr_saida;
-         b_restr_controle;
-         b_restr_increm];
-
-    % variável de folga:
-
-    Hw(1:end-n_epsilons,1:end-n_epsilons) = Hqp;
-    fw(1:end-n_epsilons) = fqp;
-    Aw(:,1:end-n_epsilons) = A;
+    [Hw,fw,Aw,b] = gerenciador_restricao(G_total,resposta_livre,N1,N2,Nuv,Nuw,n_epsilons,Us(k-1,1),Us(k-1,2),aux_Hw,aux_fw,aux_Aw,A_restr_controle,A_restr_increm,b_aux_restr_saida,b_aux_restr_controle,b_restr_increm,Hqp,fqp);
 
     % solver
     Is(k,:) = quadprog(Hw,fw,Aw,b);

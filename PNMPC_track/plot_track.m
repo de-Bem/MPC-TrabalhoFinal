@@ -2,6 +2,8 @@ clc
 close all
 clear all
 
+speed=0.5; % velocidade da animação
+
 %% ------------------------------ PLOT ------------------------------------
 
 load('plot.mat')
@@ -130,5 +132,5 @@ for k = ini_sim:fim_sim
         plot_ref = [Referencia_x(i) Referencia_y(i) Referencia_theta(i)*180/pi];
     end
 
-    pause(Ts*5);
+    pause(Ts/speed);
 end

@@ -13,7 +13,6 @@ function [Gxv, Gxw, Gyv, Gyw, Gthetav, Gthetaw] = get_Gs(x_k, y_k, theta_k, v_km
     dw = zeros(N2,1);
     resposta_livre = modelo(x_k, y_k, theta_k, v_kmin1, w_kmin1, dv, dw, 0, 0, 0, N2, Ts);
 
-
 % Gs relacionados a variavel de controle v
     Gxv=[];
     Gyv=[];
