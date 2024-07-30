@@ -122,7 +122,7 @@ i=1;
 plot_ref = [Referencia_x(1) Referencia_y(1) Referencia_theta(1)];
 for k = ini_sim:fim_sim
     prediction = modelo(Ys(k,1), Ys(k,2), Ys(k,3), ...
-    Us(k,1), Us(k,2), dvs(k,:)', dws(k,:)', 0, 0, 0, N2, Ts);
+    Us(k-1,1), Us(k-1,2), dvs(k,:)', dws(k,:)', 0, 0, 0, N2, Ts);
 
     set(h1, 'XData', prediction(1,1), 'YData', prediction(1,2));
     set(h2, 'XData', prediction(2:end,1), 'YData', prediction(2:end,2));

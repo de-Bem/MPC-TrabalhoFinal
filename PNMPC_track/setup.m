@@ -1,9 +1,9 @@
 Ts = 0.05;
 
 N1 = 1;
-N2 = 40; % horizonte de predição
-Nuv = 5; % horizonte de controle
-Nuw = N2;
+N2 = 30; % horizonte de predição
+Nuv = 10; % horizonte de controle
+Nuw = 25;
 e = 0.001; % incremento da derivação numerica para cálculo de G
 
 pos_inicial = [0 0 0];
@@ -17,14 +17,14 @@ delta_x = 1; % peso de referencia relativo a x
 delta_y = 1;
 delta_theta = 0;
 
-lambda_v = 0.1; % peso de controle relativo a v
+lambda_v = 0.01; % peso de controle relativo a v
 lambda_w = 0.01;
 
 psi_x = 10; % peso da variável de folga (epsilon) relativo a x
 psi_y = 10;
 psi_theta = 10;
 
-simTim = 35; % [s]
+simTim = 45; % [s]
 tol = 0.1; % tolerancia para fim da simulação
 
 % RESTRIÇÕES:

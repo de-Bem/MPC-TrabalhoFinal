@@ -133,7 +133,7 @@ ref_idx = 1; % para trocar de referencia
 % -------------------------------------------------------------------------
 
 ini_sim = N1+1;
-fim_sim = ini_sim+simTim/Ts;
+fim_sim = ini_sim+round(simTim/Ts);
 
 dUs = zeros(fim_sim,2);
 Us  = zeros(fim_sim,2);
