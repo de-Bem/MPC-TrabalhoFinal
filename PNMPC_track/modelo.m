@@ -9,7 +9,7 @@ function prediction = modelo(x_k, y_k, theta_k, v_kmin1, w_kmin1, dv, dw, eta_x_
 
     for k=1:N2
         x(k+1) = x(k) + Ts*v(k)*cos(theta(k));
-        y(k+1) = y(k) + Ts*w(k)*sin(theta(k));
+        y(k+1) = y(k) + Ts*v(k)*sin(theta(k));
         theta(k+1) = theta(k) + Ts*w(k);
     end
 

@@ -17,7 +17,7 @@ delta_x = 1; % peso de referencia relativo a x
 delta_y = 1;
 delta_theta = 0;
 
-lambda_v = 0.01; % peso de controle relativo a v
+lambda_v = 0.1; % peso de controle relativo a v
 lambda_w = 0.01;
 
 psi_x = 10; % peso da variável de folga (epsilon) relativo a x
