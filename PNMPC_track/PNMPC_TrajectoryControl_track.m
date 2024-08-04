@@ -143,7 +143,7 @@ Epsilons = zeros(fim_sim,n_epsilons);
 
 k=ini_sim;
 tic
-while (k<=fim_sim && ref_idx ~= length(Track_x))
+while (k<=fim_sim && ref_idx < length(Track_x))
     % calculando o processo
     Ys(k,1) = Ys(k-1,1) + Ts*Us(k-1,1)*cos(Ys(k-1,3));
     Ys(k,2) = Ys(k-1,2) + Ts*Us(k-1,1)*sin(Ys(k-1,3));

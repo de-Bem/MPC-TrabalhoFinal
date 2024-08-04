@@ -1,9 +1,9 @@
 Ts = 0.05;
 
 N1 = 1;
-N2 = 30; % horizonte de predição
-Nuv = 10; % horizonte de controle
-Nuw = 25;
+N2 = 40; % horizonte de predição
+Nuv = N2; % horizonte de controle
+Nuw = N2;
 e = 0.001; % incremento da derivação numerica para cálculo de G
 
 pos_inicial = [0 0 0];
@@ -29,22 +29,22 @@ tol = 0.1; % tolerancia para fim da simulação
 
 % RESTRIÇÕES:
 % --------------------
-x_max = 3;
-y_max = 3;
-theta_max = 10*pi;
+x_max = 2;
+y_max = 2.5;
+theta_max = 5*pi;
 
-x_min = -2;
-y_min = -1;
+x_min = -1;
+y_min = 0;
 theta_min = -theta_max;
 % --------------------
-v_max = 0.5;
-w_max = pi/2;
+v_max = 0.5; % m/s
+w_max = pi/2; % rad/s
 
 v_min = -v_max;
 w_min = -w_max;
 % --------------------
-dv_max = v_max;
-dw_max = w_max;
+dv_max = Ts*v_max*10; % pode alcançar velocidade maxima em 1/10 segundo
+dw_max = Ts*w_max*10;
 
 dv_min = -dv_max;
 dw_min = -dw_max;
