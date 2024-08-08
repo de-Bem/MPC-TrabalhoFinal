@@ -1,4 +1,4 @@
-Ts = 0.05;
+Ts = 0.04;
 
 N1 = 1;
 N2 = 40; % horizonte de predição
@@ -24,8 +24,8 @@ psi_x = 10; % peso da variável de folga (epsilon) relativo a x
 psi_y = 10;
 psi_theta = 10;
 
-simTim = 45; % [s]
-tol = 0.1; % tolerancia para fim da simulação
+simTim = 20; % [s]
+tol = 0.2; % tolerancia para fim da simulação
 
 % RESTRIÇÕES:
 % --------------------

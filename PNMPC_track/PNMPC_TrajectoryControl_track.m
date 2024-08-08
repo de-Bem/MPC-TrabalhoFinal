@@ -142,7 +142,8 @@ Is  = zeros(fim_sim,Nuv+Nuw+n_epsilons);
 Epsilons = zeros(fim_sim,n_epsilons);
 
 k=ini_sim;
-tic
+tic;  % Start timing
+startTime = tic;  % Start the timer for total execution time
 while (k<=fim_sim && ref_idx < length(Track_x))
     % calculando o processo
     Ys(k,1) = Ys(k-1,1) + Ts*Us(k-1,1)*cos(Ys(k-1,3));
@@ -188,9 +189,19 @@ while (k<=fim_sim && ref_idx < length(Track_x))
     % [ eps_x_min, eps_y_min, eps_theta_min, eps_x_max, eps_y_max, eps_theta_max ]
     Epsilons(k,:) = Is(k,end-n_epsilons+1:end);
 
+    % Calculate elapsed time and estimated remaining time
+    elapsedTime = toc(startTime);  % Total elapsed time
+    progress = (k - ini_sim) / (fim_sim - ini_sim);  % Progress as a fraction
+    estimatedTimeRemaining = (elapsedTime / progress) - elapsedTime;  % Estimate remaining time
+
+    fprintf('Iteration %d/%d\n', k - ini_sim + 1, fim_sim - ini_sim + 1);
+    fprintf('Elapsed Time: %.2f seconds\n', elapsedTime);
+    fprintf('Estimated Time Remaining: %.2f seconds\n', estimatedTimeRemaining);
+
     k=k+1;
 end
-toc
+totalTime = toc;  % Total execution time
+fprintf('Total Execution Time: %.2f seconds\n', totalTime);
 
 fim_sim = k-1;
 
