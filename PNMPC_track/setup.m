@@ -24,7 +24,7 @@ psi_x = 10; % peso da variável de folga (epsilon) relativo a x
 psi_y = 10;
 psi_theta = 10;
 
-simTim = 20; % [s]
+simTim = 10; % [s]
 tol = 0.2; % tolerancia para fim da simulação
 
 % RESTRIÇÕES:

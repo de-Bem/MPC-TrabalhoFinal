@@ -148,7 +148,11 @@ while (k<=fim_sim && ref_idx < length(Track_x))
     % calculando o processo
     Ys(k,1) = Ys(k-1,1) + Ts*Us(k-1,1)*cos(Ys(k-1,3));
     Ys(k,2) = Ys(k-1,2) + Ts*Us(k-1,1)*sin(Ys(k-1,3));
-    Ys(k,3) = Ys(k-1,3) + Ts*Us(k-1,2); 
+    Ys(k,3) = Ys(k-1,3) + Ts*Us(k-1,2);
+    % erro de modelagem
+    Ys(k,1) = Ys(k,1) + 1.0*(Ys(k,1)-Ys(k-1,1));
+    Ys(k,2) = Ys(k,2) + 1.0*(Ys(k,2)-Ys(k-1,2));
+    Ys(k,3) = Ys(k,3) + 1.0*(Ys(k,3)-Ys(k-1,3));
 
     % mudança de referencia
     if norm([Referencia_x(ref_idx) Referencia_y(ref_idx)]-Ys(k,1:2)) < tol
@@ -194,6 +198,7 @@ while (k<=fim_sim && ref_idx < length(Track_x))
     progress = (k - ini_sim) / (fim_sim - ini_sim);  % Progress as a fraction
     estimatedTimeRemaining = (elapsedTime / progress) - elapsedTime;  % Estimate remaining time
 
+    clc
     fprintf('Iteration %d/%d\n', k - ini_sim + 1, fim_sim - ini_sim + 1);
     fprintf('Elapsed Time: %.2f seconds\n', elapsedTime);
     fprintf('Estimated Time Remaining: %.2f seconds\n', estimatedTimeRemaining);
@@ -201,7 +206,9 @@ while (k<=fim_sim && ref_idx < length(Track_x))
     k=k+1;
 end
 totalTime = toc;  % Total execution time
+fprintf('--------------------------------------------\n');
 fprintf('Total Execution Time: %.2f seconds\n', totalTime);
+fprintf('Total Simulation Time: %.2f seconds\n', (k-ini_sim+1)*Ts);
 
 fim_sim = k-1;
 
