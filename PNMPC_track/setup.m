@@ -4,7 +4,9 @@ N1 = 1;
 N2 = 40; % horizonte de predição
 Nuv = N2; % horizonte de controle
 Nuw = N2;
+
 e = 0.001; % incremento da derivação numerica para cálculo de G
+stdev = 0.388; % desvio padrão do erro de modelagem (0.388 gera uma normal com 99% dos valores no intervalo [-1,1])
 
 pos_inicial = [0 0 0];
 
@@ -24,7 +26,7 @@ psi_x = 10; % peso da variável de folga (epsilon) relativo a x
 psi_y = 10;
 psi_theta = 10;
 
-simTim = 10; % [s]
+simTim = 20; % [s]
 tol = 0.2; % tolerancia para fim da simulação
 
 % RESTRIÇÕES:
