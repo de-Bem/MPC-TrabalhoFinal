@@ -50,4 +50,4 @@ def process_csv(input_file, output_file, max_dist, scaling):
     new_df.to_csv(output_file, index=False, header=False)
 
 # Example usage
-process_csv('interlagos.csv', 'track.csv', max_dist=0.5, scaling=1.25)
+process_csv('interlagos.csv', 'output.csv', max_dist=0.5, scaling=4.1666666666)

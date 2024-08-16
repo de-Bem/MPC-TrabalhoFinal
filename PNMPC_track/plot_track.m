@@ -2,7 +2,7 @@ clc
 close all
 clear all
 
-speed=0.5; % velocidade da animação
+speed=1; % velocidade da animação
 
 %% ------------------------------ PLOT ------------------------------------
 
