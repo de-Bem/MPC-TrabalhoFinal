@@ -6,7 +6,7 @@ Nuv = N2; % horizonte de controle
 Nuw = N2;
 
 e = 0.001; % incremento da derivação numerica para cálculo de G
-stdev = 0.0; % desvio padrão do erro de modelagem (0.388 gera uma normal com 99% dos valores no intervalo [-1,1])
+stdev = 0.388; % desvio padrão do erro de modelagem (0.388 gera uma normal com 99% dos valores no intervalo [-1,1])
 
 load('track.mat');
 
@@ -20,14 +20,14 @@ delta_x = 1; % peso de referencia relativo a x
 delta_y = 1;
 delta_theta = 0;
 
-lambda_v = 0.005; % peso de controle relativo a v
-lambda_w = 0.005;
+lambda_v = 0.01; % peso de controle relativo a v
+lambda_w = 0.01;
 
 psi_x = 10; % peso da variável de folga (epsilon) relativo a x
 psi_y = 10;
 psi_theta = 10;
 
-simTim = 100; % [s]
+simTim = 20; % [s]
 tol = 0.2; % tolerancia para fim da simulação
 
 % RESTRIÇÕES:
@@ -46,8 +46,8 @@ w_max = pi/2; % rad/s
 v_min = -v_max;
 w_min = -w_max;
 % --------------------
-dv_max = Ts*v_max*15; % pode alcançar velocidade maxima em 1/15 segundos
-dw_max = Ts*w_max*15;
+dv_max = Ts*v_max*10; % pode alcançar velocidade maxima em 1/15 segundos
+dw_max = Ts*w_max*10;
 
 dv_min = -dv_max;
 dw_min = -dw_max;
