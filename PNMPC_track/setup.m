@@ -6,11 +6,12 @@ Nuv = N2; % horizonte de controle
 Nuw = N2;
 
 e = 0.001; % incremento da derivação numerica para cálculo de G
-stdev = 0.388; % desvio padrão do erro de modelagem (0.388 gera uma normal com 99% dos valores no intervalo [-1,1])
-
-pos_inicial = [0 0 0];
+stdev = 0.0; % desvio padrão do erro de modelagem (0.388 gera uma normal com 99% dos valores no intervalo [-1,1])
 
 load('track.mat');
+
+pos_inicial = [0, 0, 0]; %[Track_x(1),Track_y(1),Track_theta(1)]
+
 Referencia_x = Track_x;
 Referencia_y = Track_y;
 Referencia_theta = Track_theta;

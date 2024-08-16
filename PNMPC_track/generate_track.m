@@ -3,25 +3,7 @@ close all
 clear all
 
 % Example points (replace these with your actual points)
-points = [
-
-0,0;
-0.5,0;
-1,0;
-1.5,0.5;
-2,1;
-2,1.5;
-1.5,2;
-1,2.5;
-0.5,2.5;
-0,2.5;
--0.5,2;
--1,1.5;
--1,1;
--0.5,0.5;
-0,0;
-
-];
+points = csvread('track_hexagon.csv');
 
 % Initialize theta array
 theta = zeros(size(points, 1)-1, 1);
