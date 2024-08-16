@@ -6,7 +6,7 @@ Nuv = N2; % horizonte de controle
 Nuw = N2;
 
 e = 0.001; % incremento da derivação numerica para cálculo de G
-stdev = 0.388; % desvio padrão do erro de modelagem (0.388 gera uma normal com 99% dos valores no intervalo [-1,1])
+stdev = 0.0; % desvio padrão do erro de modelagem (0.388 gera uma normal com 99% dos valores no intervalo [-1,1])
 
 load('track.mat');
 

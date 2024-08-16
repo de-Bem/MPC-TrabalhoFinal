@@ -43,8 +43,8 @@ for i = 1:length(points)-1
     text(points(i, 1), points(i, 2), sprintf('%.1f°', global_theta(i)), 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'left');
 end
 
-Track_x = points(2:end,1);
-Track_y = points(2:end,2);
-Track_theta = deg2rad(global_theta);
+Track_x = points(1:end,1);
+Track_y = points(1:end,2);
+Track_theta = [deg2rad(global_theta);0];
 
 save('track.mat','Track_x','Track_y','Track_theta');

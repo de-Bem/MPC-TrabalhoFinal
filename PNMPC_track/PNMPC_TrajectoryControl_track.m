@@ -162,9 +162,9 @@ while (k<=fim_sim && ref_idx < length(Track_x))
     end
 
     % calculo f
-    eta_x_k = 0;%Ys(k,1) - (Gxv(1,1)*dUs(k-1,1) + resposta_livre(1,1));
-    eta_y_k = 0;%Ys(k,2) - (Gyv(1,1)*dUs(k-1,1) + resposta_livre(1,2));
-    eta_theta_k = 0;%Ys(k,3) - (Gthetaw(1,1)*dUs(k-1,2) + resposta_livre(1,3));
+    eta_x_k = Ys(k,1) - (Gxv(1,1)*dUs(k-1,1) + resposta_livre(1,1));
+    eta_y_k = Ys(k,2) - (Gyv(1,1)*dUs(k-1,1) + resposta_livre(1,2));
+    eta_theta_k = Ys(k,3) - (Gthetaw(1,1)*dUs(k-1,2) + resposta_livre(1,3));
 
     resposta_livre = modelo(Ys(k,1), Ys(k,2), Ys(k,3), Us(k-1,1), Us(k-1,2), zeros(N2,1), zeros(N2,1), eta_x_k, eta_y_k, eta_theta_k, N2, Ts);
     f_total = [resposta_livre(N1:N2,1); resposta_livre(N1:N2,2); resposta_livre(N1:N2,3)];
